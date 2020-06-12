@@ -1,0 +1,24 @@
+.idea/*
+logs/*
+/logs/*
+
+###> symfony-project/framework-bundle ###
+symfony-project/.env.local
+symfony-project/.env.local.php
+symfony-project/.env.*.local
+symfony-project/config/secrets/prod/prod.decrypt.private.php
+symfony-project/public/bundles/
+symfony-project/public/media/
+symfony-project/var/
+symfony-project/vendor/
+###< symfony-project/framework-bundle ###
+symfony-project/.env
+###> friendsofphp/php-cs-fixer ###
+symfony-project/.php_cs
+symfony-project/.php_cs.cache
+###< friendsofphp/php-cs-fixer ###
+
+!.idea/
+!logs/
+/logs/nginx/
+/database.env

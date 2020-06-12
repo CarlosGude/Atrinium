@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}sectors{% endblock %}
+
+{% block body %}
+    <a href="{{ path('management_list',{'entity':'company'}) }}">Companies</a> <br>
+    <a href="{{ path('management_list',{'entity':'sector'}) }}">Sectors</a> <br>
+    <br>
+    <h1>List sectors <a href="{{ path('management_create',{'entity':entity}) }}"> Add Sector</a> </h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Id (UUID)</th>
+            <th>Name</th>
+            <th colspan="2">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for sector in pagination %}
+            <tr>
+                <td>{{ sector.id }}</td>
+                <td>{{ sector.name }}</td>
+                <td>
+                    <a href="{{ path('management_edit',{'entity': entity,'id' : sector.id}) }}">Edit</a>
+                </td>
+                <td>
+                    <a href="{{ path('management_delete',{'entity': entity,'id': sector.id}) }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        <tr class="navigation">
+            <td class="4"> {{ knp_pagination_render(pagination) }}</td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

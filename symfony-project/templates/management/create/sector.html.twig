@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Sector{% endblock %}
+
+{% block body %}
+<a href="{{ path('management_list',{'entity':'company'}) }}">Companies</a> <br>
+<a href="{{ path('management_list',{'entity':'sector'}) }}">Sectors</a> <br>
+<br>
+<h1>Create Sector <a href="{{ path('management_list',{'entity':entity}) }}"> Return to company</a> </h1>
+
+{{ form(form) }}
+    <a href="{{ path('management_list',{'entity':entity}) }}"> Cancel</a>
+
+{% endblock %}

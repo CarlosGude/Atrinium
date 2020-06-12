@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Companies{% endblock %}
+
+{% block body %}
+    {% set filter = (filter != null) ?filter.id : null %}
+    <a href="{{ path('management_list',{'entity':'company'}) }}">Companies</a> <br>
+    <a href="{{ path('management_list',{'entity':'sector'}) }}">Sectors</a> <br>
+    <br>
+    <h1>List Companies <a href="{{ path('management_create',{'entity':entity}) }}"> Add Company</a> </h1>
+
+    {{ render(controller(
+        'App\\Controller\\ManagementController::create',
+        { 'entity': 'filter','filter':filter }
+    )) }}
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id (UUID)</th>
+            <th>Name</th>
+            <th>Sector</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th colspan="2">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for company in pagination %}
+            <tr>
+                <td>{{ company.id }}</td>
+                <td>{{ company.name }}</td>
+                <td>{{ company.sector.name }}</td>
+                <td>{{ company.email }}</td>
+                <td>{{ company.phone }}</td>
+                <td>
+                    <a href="{{ path('management_edit',{'entity': entity,'id' : company.id}) }}">Edit</a>
+                </td>
+                <td>
+                    <a href="{{ path('management_delete',{'entity': entity,'id': company.id}) }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        <tr class="navigation">
+           <td class="6"> {{ knp_pagination_render(pagination) }}</td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

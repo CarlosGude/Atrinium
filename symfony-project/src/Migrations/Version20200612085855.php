@@ -14,7 +14,7 @@ final class Version20200612085855 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Add filter entity';
     }
 
     public function up(Schema $schema) : void

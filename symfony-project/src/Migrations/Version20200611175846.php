@@ -14,7 +14,7 @@ final class Version20200611175846 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Add null to phone and email in company entity';
     }
 
     public function up(Schema $schema) : void

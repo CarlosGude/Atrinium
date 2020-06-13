@@ -22,7 +22,7 @@ class FilterType extends AbstractType
                 'class' => Sector::class,
                 'required' => false
             ])
-            ->add('submit',SubmitType::class,['label' => 'save'])
+            ->add('submit',SubmitType::class,['label' => 'filter'])
         ;
     }
 

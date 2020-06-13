@@ -1,13 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit {{ entity }}{% endblock %}
+{% block title %}{{ 'edit' | trans }} {{ entity }}{% endblock %}
 
 {% block body %}
-<a href="{{ path('management_list',{'entity':'company'}) }}">Companies</a> <br>
-<a href="{{ path('management_list',{'entity':'sector'}) }}">Sectors</a> <br>
-<br>
-<h1>Edit {{ entity }} <a href="{{ path('management_list',{'entity':entity}) }}"> Return to company</a> </h1>
+<div class="container">
+    <h1>{{ 'edit' | trans }} {{ entity }}</h1>
 
-{{ form(form) }}
-    <a href="{{ path('management_list',{'entity':entity}) }}"> Cancel</a>
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    <div class="row">
+        <div class="col-md-2">{{ form_row(form.submit) }}</div>
+        <div class="col-md-2">
+            <a class="btn btn-secondary" href="{{ path('management_list',{'entity':entity}) }}">{{ 'cancel' | trans }}</a>
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+</div>
+
 {% endblock %}

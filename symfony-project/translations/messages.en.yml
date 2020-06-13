@@ -1,0 +1,47 @@
+atrinium: Atrinium
+logout: Logout
+id: ID (UUID)
+actions: Acctions
+edit: Edit
+delete: Delete
+filter: Filter
+cancel: Cancel
+save: Save
+calculating: Calculating
+
+login:
+  welcome: Welcome to Atrinium
+  signin: Sign in
+
+user:
+  email: Email
+  password: Password
+
+management:
+  companies: Companies
+  sectors: Sectors
+  exchange: Exchange
+  title: Atrinium management
+  button: Manage
+
+company:
+  create: Create company
+  list: List companies
+  add: Add company
+  name: Name
+  sector: Sector
+  email: Email
+  phone: Phone
+
+sector:
+  create: Create sector
+  list: List sectors
+  add: Add sector
+  name: Name
+
+exchange:
+  create: Make exchange
+  originCurrency: Origin Currency
+  destinyCurrency: Destiny Currency
+  originValue: Origin Value
+  date: Date

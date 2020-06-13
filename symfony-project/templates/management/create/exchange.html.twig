@@ -1,11 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Create Company{% endblock %}
+{% block title %}{{ 'exchange.create' | trans }}{% endblock %}
 
 {% block body %}
+    <div class="container">
+        <h1>{{ 'exchange.create' | trans }}</h1>
+        <div class="alert alert-primary" role="alert" id="calculating" style="display: none">
+            <div class="spinner-border" role="status">
+            </div>
+           {{ 'calculating' | trans }}
+        </div>
+        <div class="alert alert-success" role="alert" id="success" style="display:none;">
+        </div>
+
+        {{ form(form,{'attr':{'action':path('management_create',{'entity':entity})}}) }}
+
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+<script>
+    // this is the id of the form
+    $("form").submit(function(e) {
+        $('#calculating').show();
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        var form = $(this);
+        var url = form.attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(), // serializes the form's elements.
+            success: function(data)
+            {
+                console.log(data); // show response from the php script.
+                $('#calculating').hide();
+
+                let finalValue = data.finalValue;
 
 
-    {{ form(form) }}
+                $('#success').show().html(number_format( finalValue, 2, ',', ' ' )+data.destinyCurrency);
+            }
+        });
 
 
+    });
+
+    number_format = function (number, decimals, dec_point, thousands_sep) {
+        number = number.toFixed(decimals);
+
+        var nstr = number.toString();
+        nstr += '';
+        x = nstr.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? dec_point + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+
+        while (rgx.test(x1))
+            x1 = x1.replace(rgx, '$1' + thousands_sep + '$2');
+
+        return x1 + x2;
+    }
+</script>
 {% endblock %}

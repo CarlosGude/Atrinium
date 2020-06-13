@@ -3,6 +3,33 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block body %}
-<a href="{{ path('management_list',{'entity':'company'}) }}">Companies</a> <br>
-<a href="{{ path('management_list',{'entity':'sector'}) }}">Sectors</a> <br>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">{{ 'management.title' | trans }}</h1>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ 'management.companies' | trans }}</h5>
+                            <a class="btn btn-primary" href="{{ path('management_list',{'entity':'company'}) }}">
+                                {{ 'management.button' | trans }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ 'management.companies' | trans }}</h5>
+                            <a class="btn btn-primary" href="{{ path('management_list',{'entity':'company'}) }}">
+                                {{ 'management.button' | trans }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

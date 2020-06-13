@@ -134,6 +134,10 @@ class ManagementController extends AbstractController
             $em->persist($element);
             $em->flush();
 
+            if ($request->isXmlHttpRequest()) {
+                return $this->json($element);
+            }
+
             $this->addFlash('success', $translator->trans($entity.'.created', ['{{element}}' => $element]));
 
             return $this->redirectToRoute('management_list', ['entity' => $entity,]);

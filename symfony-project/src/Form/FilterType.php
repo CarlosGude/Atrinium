@@ -32,16 +32,16 @@ class FilterType extends AbstractType
         $user = $this->security->getUser();
 
         $builder
-            ->add('name',TextType::class,['label' => 'company.name','required' => false])
-            ->add('sector',EntityType::class,[
+            ->add('name', TextType::class, ['label' => 'company.name', 'required' => false])
+            ->add('sector', EntityType::class, [
                 'label' => 'company.sector',
-                'query_builder' => static function (SectorRepository $repository) use ($user){
+                'query_builder' => static function (SectorRepository $repository) use ($user) {
                     return $repository->findByUserAuthorized($user);
                 },
                 'class' => Sector::class,
-                'required' => false
+                'required' => false,
             ])
-            ->add('submit',SubmitType::class,['label' => 'filter'])
+            ->add('submit', SubmitType::class, ['label' => 'filter'])
         ;
     }
 

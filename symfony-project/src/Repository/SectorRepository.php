@@ -22,15 +22,14 @@ class SectorRepository extends ServiceEntityRepository
 
     public function findByUserAuthorized(User $user)
     {
-        if(in_array(User::ROLE_ADMIN,$user->getRoles(),true)){
+        if (in_array(User::ROLE_ADMIN, $user->getRoles(), true)) {
             return $this->createQueryBuilder('s');
         }
 
         return $this->createQueryBuilder('s')
-            ->innerJoin('s.users','u')
+            ->innerJoin('s.users', 'u')
             ->andWhere('u.id = :user')
             ->setParameter('user', $user->getId())
         ;
     }
-
 }

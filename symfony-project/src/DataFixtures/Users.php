@@ -11,20 +11,17 @@ use Exception;
 
 class Users extends Fixture implements OrderedFixtureInterface
 {
-
     /**
-     * @param ObjectManager $manager
      * @throws Exception
      */
     public function load(ObjectManager $manager): void
     {
         $data = [
-            ['email' => 'admin@atrinium.wip', 'password' => 'password', 'roles' =>['ROLE_ADMIN']],
+            ['email' => 'admin@atrinium.wip', 'password' => 'password', 'roles' => ['ROLE_ADMIN']],
             ['email' => 'user@atrinium.wip', 'password' => 'password'],
         ];
 
         foreach ($data as $datum) {
-
             $user = new User();
             $user
                 ->setEmail($datum['email'])
@@ -32,11 +29,11 @@ class Users extends Fixture implements OrderedFixtureInterface
             ;
 
             /** @var Sector $sector */
-            foreach ($this->getSectors($manager) as $sector){
-               $user->addAuthorizedSector($sector);
+            foreach ($this->getSectors($manager) as $sector) {
+                $user->addAuthorizedSector($sector);
             }
 
-            if(isset($datum['roles'])){
+            if (isset($datum['roles'])) {
                 $user->setRoles($datum['roles']);
             }
 
@@ -52,15 +49,13 @@ class Users extends Fixture implements OrderedFixtureInterface
     }
 
     /**
-     * @param ObjectManager $manager
-     * @return array
      * @throws Exception
      */
-    protected function getSectors(ObjectManager $manager):array
+    protected function getSectors(ObjectManager $manager): array
     {
         $sectors = $manager->getRepository(Sector::class)->findAll();
         shuffle($sectors);
-        $array = array_chunk($sectors,random_int(1,count($sectors)));
+        $array = array_chunk($sectors, random_int(1, count($sectors)));
 
         return array_pop($array);
     }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\EventListener;
 
 use App\Entity\User;
@@ -33,18 +32,14 @@ class UserEventSubscriber implements EventSubscriber
         ];
     }
 
-    /**
-     * @param LifecycleEventArgs $args
-     */
     public function prePersist(LifecycleEventArgs $args): void
     {
         $user = $args->getObject();
 
-        if (!$user instanceof User){
+        if (!$user instanceof User) {
             return;
         }
 
-        $user->setPassword($this->encoder->encodePassword($user,$user->getPassword()));
-
+        $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
     }
 }

@@ -22,19 +22,19 @@ class CompanyRepository extends ServiceEntityRepository
         parent::__construct($registry, Company::class);
     }
 
-    public function findByFilter(User $user,Filter $filter = null): Query
+    public function findByFilter(User $user, Filter $filter = null): Query
     {
         $where = null;
-        $parameters = array();
+        $parameters = [];
 
-        if($filter){
+        if ($filter) {
             if ($filter->getName()) {
                 $where = 'c.name LIKE :name';
                 $parameters = array_merge($parameters, ['name' => '%'.$filter->getName().'%']);
             }
 
             if ($filter->getSector()) {
-                $where .= ($where) ? ' AND ': '';
+                $where .= ($where) ? ' AND ' : '';
                 $where .= 'c.sector = :sector';
                 $parameters = array_merge($parameters, ['sector' => $filter->getSector()]);
             }
@@ -45,17 +45,15 @@ class CompanyRepository extends ServiceEntityRepository
                 ->getQuery();
         }
 
-        if(in_array(User::ROLE_CLIENT, $user->getRoles(), true)){
+        if (in_array(User::ROLE_CLIENT, $user->getRoles(), true)) {
             return $this->createQueryBuilder('c')
-                ->innerJoin('c.sector','sector')
-                ->innerJoin('sector.users','user')
+                ->innerJoin('c.sector', 'sector')
+                ->innerJoin('sector.users', 'user')
                 ->where('user.id = :user')
                 ->setParameters(['user' => $user->getId()])
                 ->getQuery();
         }
 
         return $this->createQueryBuilder('c')->getQuery();
-
     }
-
 }

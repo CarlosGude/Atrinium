@@ -6,10 +6,10 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Ramsey\Uuid\Doctrine\UuidGenerator;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -17,7 +17,6 @@ use Ramsey\Uuid\Doctrine\UuidGenerator;
  */
 class User implements UserInterface
 {
-
     public const ROLE_ADMIN = 'ROLE_ADMIN';
     public const ROLE_CLIENT = 'ROLE_CLIENT';
     /**

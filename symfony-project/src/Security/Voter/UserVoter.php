@@ -2,11 +2,9 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Sector;
 use App\Entity\User;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserVoter extends AbstractVoter
 {

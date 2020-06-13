@@ -9,9 +9,9 @@ use Doctrine\Persistence\ObjectManager;
 
 class Sectors extends Fixture implements OrderedFixtureInterface
 {
-    public function load(ObjectManager $manager):void
+    public function load(ObjectManager $manager): void
     {
-        for ($i=1;$i<100;$i++) {
+        for ($i = 1; $i < 100; ++$i) {
             $sector = new Sector();
             $sector->setName('Sector '.$i);
 
@@ -21,7 +21,7 @@ class Sectors extends Fixture implements OrderedFixtureInterface
         $manager->flush();
     }
 
-    public function getOrder():int
+    public function getOrder(): int
     {
         return 1;
     }

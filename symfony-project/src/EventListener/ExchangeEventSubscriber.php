@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\EventListener;
 
 use App\Entity\Exchange;
@@ -33,7 +32,6 @@ class ExchangeEventSubscriber implements EventSubscriber
     }
 
     /**
-     * @param LifecycleEventArgs $args
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
@@ -43,7 +41,7 @@ class ExchangeEventSubscriber implements EventSubscriber
     {
         $exchange = $args->getObject();
 
-        if (!$exchange instanceof Exchange){
+        if (!$exchange instanceof Exchange) {
             return;
         }
 

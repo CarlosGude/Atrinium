@@ -3,7 +3,6 @@
 namespace App\Security\Voter;
 
 use App\Entity\User;
-use App\Interfaces\EntityInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 abstract class AbstractVoter extends Voter
@@ -17,5 +16,4 @@ abstract class AbstractVoter extends Voter
     {
         return in_array(User::ROLE_ADMIN, $roles, true);
     }
-
 }

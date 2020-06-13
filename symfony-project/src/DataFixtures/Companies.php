@@ -12,17 +12,16 @@ use Exception;
 class Companies extends Fixture implements OrderedFixtureInterface
 {
     /**
-     * @param ObjectManager $manager
      * @throws Exception
      */
     public function load(ObjectManager $manager): void
     {
-        foreach ($manager->getRepository(Sector::class)->findAll() as $sector){
+        foreach ($manager->getRepository(Sector::class)->findAll() as $sector) {
             $company = new Company();
             $company
                 ->setName('Comapny '.$sector->getName())
-                ->setEmail('info@'.strtolower(str_replace(' ','-',$company->getName())).'com')
-                ->setPhone(random_int(600000000,699999999))
+                ->setEmail('info@'.strtolower(str_replace(' ', '-', $company->getName())).'com')
+                ->setPhone(random_int(600000000, 699999999))
                 ->setSector($sector)
             ;
 
@@ -32,7 +31,7 @@ class Companies extends Fixture implements OrderedFixtureInterface
         $manager->flush();
     }
 
-    public function getOrder():int
+    public function getOrder(): int
     {
         return 2;
     }

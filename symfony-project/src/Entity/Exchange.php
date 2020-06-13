@@ -4,8 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ExchangeRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @ORM\Entity(repositoryClass=ExchangeRepository::class)
@@ -79,6 +79,7 @@ class Exchange
 
     /**
      * @param mixed $destinyCurrency
+     *
      * @return Exchange
      */
     public function setDestinyCurrency($destinyCurrency)
@@ -86,7 +87,6 @@ class Exchange
         $this->destinyCurrency = $destinyCurrency;
         return $this;
     }
-
 
     public function getOriginValue(): ?float
     {

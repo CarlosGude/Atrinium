@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Utils;
 
 use App\Entity\Exchange;
@@ -26,8 +27,8 @@ class FixerApi
     }
 
     /**
-     * @param Exchange $exchange
      * @return array
+     *
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
@@ -39,24 +40,24 @@ class FixerApi
 
         $date = $exchange->getDate();
 
-        if(!$date){
+        if (!$date) {
             throw new RuntimeException('The date can not be null.');
         }
 
         $fixerData = $this->entityManager->getRepository(FixerData::class)->findOneBy([
-            'date' =>$date
+            'date' => $date,
         ]);
 
-        if ($fixerData){
+        if ($fixerData) {
             return $fixerData;
         }
 
         $response = $client->request(
             'GET',
-            str_replace('DATE',$date->format('Y-m-d'),self::API_URL)
+            str_replace('DATE', $date->format('Y-m-d'), self::API_URL)
         );
 
-        $arrayResponse = json_decode($response->getContent(),true);
+        $arrayResponse = json_decode($response->getContent(), true);
 
         $fixerData = new FixerData();
 

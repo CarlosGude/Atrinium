@@ -26,21 +26,22 @@ class CompanyType extends AbstractType
     {
         $this->security = $security;
     }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $user = $this->security->getUser();
         $builder
-            ->add('name',TextType::class,['label' => 'company.name'])
-            ->add('phone',TelType::class,['label' => 'company.phone','required' => false])
-            ->add('email',EmailType::class,['label' => 'company.email','required' => false])
-            ->add('sector',EntityType::class,[
+            ->add('name', TextType::class, ['label' => 'company.name'])
+            ->add('phone', TelType::class, ['label' => 'company.phone', 'required' => false])
+            ->add('email', EmailType::class, ['label' => 'company.email', 'required' => false])
+            ->add('sector', EntityType::class, [
                 'label' => 'company.sector',
                 'class' => Sector::class,
-                'query_builder' => static function (SectorRepository $repository) use ($user){
+                'query_builder' => static function (SectorRepository $repository) use ($user) {
                     return $repository->findByUserAuthorized($user);
                 },
             ])
-            ->add('submit',SubmitType::class,['label' => 'save'])
+            ->add('submit', SubmitType::class, ['label' => 'save'])
         ;
     }
 

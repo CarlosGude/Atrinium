@@ -2,7 +2,6 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Company;
 use App\Entity\Filter;
 use App\Entity\User;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;

@@ -11,21 +11,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class FilterController
- * @package App\Controller
+ * Class FilterController.
+ *
  * @Route("management/filter", name="filter")
  */
 class FilterController extends AbstractController
 {
     /**
      * @Route("/", name="_company")
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @return RedirectResponse
      */
     public function filter(Request $request, EntityManagerInterface $em): RedirectResponse
     {
-
         $filter = new Filter();
         $form = $this->createForm(FilterType::class, $filter);
         $form->handleRequest($request);
@@ -36,10 +32,10 @@ class FilterController extends AbstractController
 
             return $this->redirectToRoute('management_list', [
                 'entity' => 'company',
-                'filter' => $filter->getId()
+                'filter' => $filter->getId(),
             ]);
         }
 
-        return $this->redirectToRoute('management_list',['entity' => 'company']);
+        return $this->redirectToRoute('management_list', ['entity' => 'company']);
     }
 }

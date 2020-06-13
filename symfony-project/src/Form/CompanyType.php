@@ -28,6 +28,7 @@ class CompanyType extends AbstractType
     }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $user = $this->security->getUser();
         $builder
             ->add('name',TextType::class,['label' => 'company.name'])
             ->add('phone',TelType::class,['label' => 'company.phone','required' => false])

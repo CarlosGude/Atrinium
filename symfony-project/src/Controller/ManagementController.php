@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Company;
 use App\Entity\Filter;
+use App\Security\Voter\AbstractVoter;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
@@ -55,8 +56,10 @@ class ManagementController extends AbstractController
     {
         $class = self::ENTITY_NAMESPACE.ucfirst($entity);
 
-        $data = ($filter && $class === Company::class)
-            ? $em->getRepository(Company::class)->findByFilter($filter)
+        $this->denyAccessUnlessGranted(AbstractVoter::READ, new $class());
+
+        $data = ($class === Company::class)
+            ? $em->getRepository(Company::class)->findByFilter($this->getUser(),$filter)
             : $em->getRepository($class)->findAll();
 
 
@@ -84,6 +87,8 @@ class ManagementController extends AbstractController
         if (!class_exists($class)) {
             throw new NotFoundHttpException('Page not found.');
         }
+
+        $this->denyAccessUnlessGranted(AbstractVoter::DELETE, new $class());
 
         $element = $em->getRepository($class)->find($id);
 
@@ -117,6 +122,7 @@ class ManagementController extends AbstractController
         $class = self::ENTITY_NAMESPACE.ucfirst($entity);
         $formClass = self::FORM_NAMESPACE.ucfirst($entity).'Type';
 
+        $this->denyAccessUnlessGranted(AbstractVoter::CREATE, new $class());
         if (!class_exists($class)) {
             throw new NotFoundHttpException('Page not found.');
         }
@@ -182,6 +188,8 @@ class ManagementController extends AbstractController
         if (!$element) {
             throw new RuntimeException('Page not found.');
         }
+
+        $this->denyAccessUnlessGranted(AbstractVoter::UPDATE, $element);
 
         $form = $this->createForm($formClass, $element);
         $form->handleRequest($request);

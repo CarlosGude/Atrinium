@@ -2,37 +2,43 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Sector;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Exception;
 
 class Users extends Fixture implements OrderedFixtureInterface
 {
+
     /**
-     * @var UserPasswordEncoderInterface
+     * @param ObjectManager $manager
+     * @throws Exception
      */
-    private $encoder;
-
-    public function __construct(UserPasswordEncoderInterface $encoder)
-    {
-
-        $this->encoder = $encoder;
-    }
-
     public function load(ObjectManager $manager): void
     {
         $data = [
-            ['email' => 'carlos.sgude@gmail.com', 'password' => 'password'],
+            ['email' => 'admin@atrinium.wip', 'password' => 'password', 'roles' =>['ROLE_ADMIN']],
+            ['email' => 'user@atrinium.wip', 'password' => 'password'],
         ];
 
         foreach ($data as $datum) {
+
             $user = new User();
             $user
                 ->setEmail($datum['email'])
-                ->setPassword($this->encoder->encodePassword($user,$datum['password']))
+                ->setPassword($datum['password'])
             ;
+
+            /** @var Sector $sector */
+            foreach ($this->getSectors($manager) as $sector){
+               //$user->addAuthorizedSector($sector);
+            }
+
+            if(isset($datum['roles'])){
+                $user->setRoles($datum['roles']);
+            }
 
             $manager->persist($user);
         }
@@ -42,6 +48,20 @@ class Users extends Fixture implements OrderedFixtureInterface
 
     public function getOrder(): int
     {
-        return 0;
+        return 3;
+    }
+
+    /**
+     * @param ObjectManager $manager
+     * @return array
+     * @throws Exception
+     */
+    protected function getSectors(ObjectManager $manager):array
+    {
+        $sectors = $manager->getRepository(Sector::class)->findAll();
+        shuffle($sectors);
+        $array = array_chunk($sectors,random_int(1,count($sectors)));
+
+        return array_pop($array);
     }
 }

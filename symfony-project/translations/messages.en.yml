@@ -8,14 +8,21 @@ filter: Filter
 cancel: Cancel
 save: Save
 calculating: Calculating
+ROLE_ADMIN: Admin
+ROLE_CLIENT: Client
 
 login:
   welcome: Welcome to Atrinium
   signin: Sign in
 
 user:
+  create: Create user
+  list: List users
+  add: Add user
   email: Email
   password: Password
+  roles: Roles
+  authorizedSectors: Authorized Sectors
 
 management:
   companies: Companies
@@ -23,6 +30,7 @@ management:
   exchange: Exchange
   title: Atrinium management
   button: Manage
+  users: Users
 
 company:
   create: Create company

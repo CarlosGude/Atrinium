@@ -18,16 +18,18 @@
                         </div>
                     </div>
                 </div>
+                {% if (is_granted('ROLE_ADMIN')) %}
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">{{ 'management.companies' | trans }}</h5>
-                            <a class="btn btn-primary" href="{{ path('management_list',{'entity':'company'}) }}">
+                            <h5 class="card-title">{{ 'management.sectors' | trans }}</h5>
+                            <a class="btn btn-primary" href="{{ path('management_list',{'entity':'sectors'}) }}">
                                 {{ 'management.button' | trans }}
                             </a>
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>

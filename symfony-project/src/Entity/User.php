@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -15,6 +17,9 @@ use Ramsey\Uuid\Doctrine\UuidGenerator;
  */
 class User implements UserInterface
 {
+
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
+    public const ROLE_CLIENT = 'ROLE_CLIENT';
     /**
      * @var UuidInterface
      *
@@ -33,13 +38,28 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private $roles = [self::ROLE_CLIENT];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Sector::class, inversedBy="users")
+     */
+    private $authorizedSectors;
+
+    public function __construct()
+    {
+        $this->authorizedSectors = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getEmail();
+    }
 
     public function getId(): ?string
     {
@@ -74,8 +94,6 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
@@ -117,5 +135,31 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Sector[]
+     */
+    public function getAuthorizedSectors(): Collection
+    {
+        return $this->authorizedSectors;
+    }
+
+    public function addAuthorizedSector(Sector $authorizedSector): self
+    {
+        if (!$this->authorizedSectors->contains($authorizedSector)) {
+            $this->authorizedSectors[] = $authorizedSector;
+        }
+
+        return $this;
+    }
+
+    public function removeAuthorizedSector(Sector $authorizedSector): self
+    {
+        if ($this->authorizedSectors->contains($authorizedSector)) {
+            $this->authorizedSectors->removeElement($authorizedSector);
+        }
+
+        return $this;
     }
 }

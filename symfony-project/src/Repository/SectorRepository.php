@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Sector;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +20,17 @@ class SectorRepository extends ServiceEntityRepository
         parent::__construct($registry, Sector::class);
     }
 
-    // /**
-    //  * @return Sector[] Returns an array of Sector objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByUserAuthorized(User $user)
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        if(in_array(User::ROLE_ADMIN,$user->getRoles(),true)){
+            return $this->createQueryBuilder('s');
+        }
 
-    /*
-    public function findOneBySomeField($value): ?Sector
-    {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
+            ->innerJoin('s.users','u')
+            ->andWhere('u.id = :user')
+            ->setParameter('user', $user->getId())
         ;
     }
-    */
+
 }

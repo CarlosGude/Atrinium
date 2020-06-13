@@ -1,13 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'sector.create' | trans }}{% endblock %}
+{% block title %}{{ 'edit' | trans }} {{ entity }}{% endblock %}
 
 {% block body %}
     <div class="container">
-        <h1>{{ 'sector.create' | trans }}</h1>
+        <h1>{{ 'edit' | trans }} {{ entity }}</h1>
 
         {{ form_start(form) }}
-        {{ form_row(form.name) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.roles) }}
+        {{ form_row(form.authorizedSectors) }}
+        {% if form.password is defined %}
+            {{ form_row(form.password) }}
+        {% endif %}
         <div class="row">
             <div class="col-md-2">{{ form_row(form.submit) }}</div>
             <div class="col-md-2">

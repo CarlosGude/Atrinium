@@ -33,7 +33,7 @@ class Users extends Fixture implements OrderedFixtureInterface
 
             /** @var Sector $sector */
             foreach ($this->getSectors($manager) as $sector){
-               //$user->addAuthorizedSector($sector);
+               $user->addAuthorizedSector($sector);
             }
 
             if(isset($datum['roles'])){

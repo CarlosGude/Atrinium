@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'delete' | trans }} {{ element }}{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1>{{ 'delete' | trans }} {{ element }}</h1>
+        <p>
+            {{ 'sure' | trans }}
+        </p>
+        <div class="row">
+            <div class="col-md-2">
+                <a class="btn btn-primary" href="{{ path('management_delete',{'entity':entity,'id':element.id}) }}">{{ 'delete' | trans }}</a>
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-secondary" href="{{ path('management_list',{'entity':entity}) }}">{{ 'cancel' | trans }}</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

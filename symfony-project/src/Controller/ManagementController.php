@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Company;
 use App\Entity\Filter;
+use App\Entity\Sector;
 use App\Security\Voter\AbstractVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -63,6 +64,39 @@ class ManagementController extends AbstractController
     }
 
     /**
+     * @Route("/pre-delete/{entity}/{id}", name="pre-delete")
+     */
+    public function preDelete(string $entity, string $id,EntityManagerInterface $em)
+    {
+        $class = self::ENTITY_NAMESPACE.ucfirst($entity);
+
+        if (!class_exists($class)) {
+            throw new NotFoundHttpException('Page not found.');
+        }
+
+        $this->denyAccessUnlessGranted(AbstractVoter::DELETE, new $class());
+
+        $element = $em->getRepository($class)->find($id);
+
+        if (!$element) {
+            throw new RuntimeException('Page not found.');
+        }
+
+        $canDelete = true;
+
+        if($element instanceof Sector && $element->getCompanies()->count()>0){
+            $canDelete = false;
+        }
+
+        return $this->render('management/pre-delete/'.$entity.'.html.twig', [
+            'element' => $element,
+            'entity' => $entity,
+            'canDelete' => $canDelete
+        ]);
+
+    }
+
+    /**
      * @Route("/delete-{entity}/{id}", name="delete")
      *
      * @return Response
@@ -86,7 +120,7 @@ class ManagementController extends AbstractController
         $em->remove($element);
         $em->flush();
 
-        return $this->redirect($request->headers->get('referer'));
+        return $this->redirectToRoute('management_list',['entity' => $entity]);
     }
 
     /**

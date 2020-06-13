@@ -10,7 +10,10 @@ save: Save
 calculating: Calculating
 ROLE_ADMIN: Admin
 ROLE_CLIENT: Client
+sure: Are you sure? This action can not be undo.
 
+error:
+  delete: This elemente can not be deleted, because it has elements nested.
 login:
   welcome: Welcome to Atrinium
   signin: Sign in

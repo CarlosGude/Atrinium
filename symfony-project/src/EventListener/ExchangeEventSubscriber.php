@@ -48,13 +48,10 @@ class ExchangeEventSubscriber implements EventSubscriber
         }
 
         $fixerExchanges = $this->fixerApi->getExchangesByDate($exchange);
-
         $rates = $fixerExchanges->getRate();
-
         //First convert in base currency
-        $baseValue = $exchange->getOriginValue()*$rates[$exchange->getOriginCurrency()];
-
+        $baseValue = $exchange->getOriginValue() * $rates[$exchange->getOriginCurrency()];
         //Covert the base currency in the final value
-        $exchange->setFinalCurrency($baseValue * $rates[$exchange->getDestinyCurrency()]);
+        $exchange->setFinalValue($baseValue / $rates[$exchange->getDestinyCurrency()]);
     }
 }

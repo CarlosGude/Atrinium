@@ -40,7 +40,7 @@ class Exchange
     /**
      * @ORM\Column(type="float")
      */
-    private $finalCurrency;
+    private $finalValue;
 
     /**
      * @ORM\Column(type="date")
@@ -100,14 +100,14 @@ class Exchange
         return $this;
     }
 
-    public function getFinalCurrency(): ?float
+    public function getFinalValue(): ?float
     {
-        return $this->finalCurrency;
+        return $this->finalValue;
     }
 
-    public function setFinalCurrency(float $finalCurrency): self
+    public function setFinalValue(float $finalValue): self
     {
-        $this->finalCurrency = $finalCurrency;
+        $this->finalValue = $finalValue;
 
         return $this;
     }

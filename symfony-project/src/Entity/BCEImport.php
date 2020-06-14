@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\FixerDataRepository;
+use App\Repository\BCEImportRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * @ORM\Entity(repositoryClass=FixerDataRepository::class)
+ * @ORM\Entity(repositoryClass=BCEImportRepository::class)
  */
-class FixerData
+class BCEImport
 {
     /**
      * @var UuidInterface

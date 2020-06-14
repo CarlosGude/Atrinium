@@ -9,11 +9,12 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% if app.user %}
-            {% include 'includes/navBar.html.twig' %}
-        {% endif %}
 
-        {% block body %}{% endblock %}
+
+        {% block body %}
+            {% include 'includes/navBar.html.twig' %}
+        {% block content %}{% endblock %}
+        {% endblock %}
 
         <script
                 src="https://code.jquery.com/jquery-3.5.1.min.js"

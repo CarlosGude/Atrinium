@@ -17,6 +17,8 @@ error:
 login:
   welcome: Welcome to Atrinium
   signin: Sign in
+  exchange: Go to exchange currencies form
+  goTo: Login
 
 user:
   create: Create user

@@ -13,6 +13,7 @@
     {% endif %}
 
     <img class="mb-4 img-fluid" src="{{ asset('assets/img/logo.svg') }}" alt="atrinium">
+    <a href="{{ path('management_create',{'entity':'exchange'}) }}">{{ 'login.exchange' | trans }}</a>
     <h1 class="h3 mb-3 font-weight-normal">{{ 'login.welcome' | trans }}</h1>
 
     <label for="inputEmail">{{ 'user.email' | trans }}</label>
